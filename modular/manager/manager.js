@@ -1,8 +1,14 @@
+'use strict'
+const port = process.env.PORT || 3030;
+const ioClient = require('socket.io-client');
+let host = `http://localhost:${port}/`;
+const managerConnection = ioClient.connect(host);
+
 const { v4: uuidv4 } = require('uuid');
 const {faker} = require('@faker-js/faker');
-require('./pilot')
-require('./system')
-const events = require('./events');
+
+managerConnection.on('connect', () => {
+  console.log('Connected to the socket.io server as a client.');
 
 setInterval(() => {
     const flightId = uuidv4();
@@ -21,9 +27,10 @@ setInterval(() => {
     };
 
     console.log('Manager: new flight with ID', flightId, 'has been scheduled');
-    events.emit('new-flight', flight);
+  managerConnection.emit('new-flight', flight);
   }, 10000);
 
-  events.on('arrived', (flight) => {
+  managerConnection.on('arrived', (flight) => {
     console.log('Manager: we’re greatly thankful for the amazing flight,', flight.Details.pilot);
   });
+});
