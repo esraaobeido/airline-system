@@ -1,5 +1,5 @@
 # airline-system
 ## Results
-![](./ubuntutest.png)
+![](./result-lab12.png)
 ## Uml
 ![](./uml.jpg)
