@@ -7,7 +7,7 @@ const systemConnection = ioClient.connect(host);
 let host2 = `http://localhost:${port}/airline`;
 const pilotConnection = ioClient.connect(host2);
 
-systemConnection.on('new-flight', (flightDetails) => { 
+systemConnection.on('new-flight', (flight) => { 
   setTimeout(() => {
     console.log('Pilot: flight with ID', flight.Details.flightID, 'took-off');
     flight.event = 'took_off';
