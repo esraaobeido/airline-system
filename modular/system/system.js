@@ -1,15 +1,11 @@
 'use strict';
 
-
 require('dotenv').config();
-// const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3030;
 const socket= require('socket.io');
-const port = 3031;
 const io = new socket.Server(port);
-console.log('test')
 
 io.on('connection', (newSocket)=>{
-  console.log('test')
   console.log(`welcome to server socket , id: ${newSocket.id}`)
   
   newSocket.on('new-flight', (flight) => {
